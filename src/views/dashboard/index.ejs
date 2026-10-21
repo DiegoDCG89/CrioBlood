@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel | CrioBlood</title>
+
+    <style>
+        :root {
+            --vermelho: #E51E43;
+            --vermelho-escuro: #B90D2D;
+            --verde-azulado: #008C8C;
+            --verde-escuro: #006B70;
+            --rosa-claro: #FCE4E9;
+            --texto: #343B45;
+            --cinza: #727984;
+            --branco: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #FFF9FA;
+            color: var(--texto);
+        }
+
+        header {
+            background: var(--branco);
+            padding: 20px 7%;
+            border-bottom: 1px solid #F2DDE2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 27px;
+            letter-spacing: -1px;
+            color: var(--verde-azulado);
+        }
+
+        .logo span {
+            color: var(--vermelho);
+        }
+
+        .botao-sair {
+            display: inline-block;
+            background: var(--vermelho);
+            color: var(--branco);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .botao-sair:hover {
+            background: var(--vermelho-escuro);
+            transform: translateY(-1px);
+        }
+
+        main {
+            width: 100%;
+            max-width: 1100px;
+            margin: 45px auto;
+            padding: 0 24px;
+            flex: 1;
+        }
+
+        .boas-vindas {
+            background: linear-gradient(
+                120deg,
+                var(--rosa-claro),
+                #E0F4F1
+            );
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid #F3E0E5;
+            margin-bottom: 28px;
+        }
+
+        .boas-vindas h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .boas-vindas p {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            color: var(--verde-escuro);
+            font-weight: bold;
+        }
+
+        .cartao {
+            background: var(--branco);
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid #F0E3E6;
+            border-left: 5px solid var(--verde-azulado);
+            box-shadow: 0 5px 18px rgba(52, 59, 69, 0.04);
+        }
+
+        .cartao h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .cartao p {
+            color: var(--cinza);
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .perfil {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 13px;
+            border-radius: 20px;
+            background: var(--rosa-claro);
+            color: var(--vermelho-escuro);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--cinza);
+            font-size: 13px;
+            border-top: 1px solid #F2DDE2;
+            background: var(--branco);
+        }
+
+        footer strong {
+            color: var(--verde-azulado);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 18px 5%;
+            }
+
+            main {
+                margin: 28px auto;
+                padding: 0 16px;
+            }
+
+            .boas-vindas {
+                padding: 25px;
+            }
+
+            .boas-vindas h2 {
+                font-size: 23px;
+            }
+
+            .cartao {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="logo">Crio<span>Blood</span></h1>
+
+        <form action="/logout" method="POST">
+            <button type="submit" class="botao-sair">
+                Sair do sistema
+            </button>
+        </form>
+    </header>
+
+    <main>
+
+        <section class="boas-vindas">
+            <h2>Olá, <%= usuario.nome %>!</h2>
+
+            <p>
+                Bem-vindo(a) ao Sistema de Gestão Transfusional.
+            </p>
+
+            <p>
+                Seu acesso foi autenticado com sucesso.
+            </p>
+
+            <p class="destaque">
+                Estamos trabalhando para tornar a gestão do hemocentro
+                mais organizada, segura e eficiente.
+            </p>
+        </section>
+
+        <section class="cartao">
+            <h3>Painel do sistema</h3>
+
+            <p>
+                Esta área será utilizada para acessar os módulos
+                e as funcionalidades do CrioBlood.
+            </p>
+
+            <div class="perfil">
+                Perfil:
+                <%= usuario.administrador
+                    ? 'Administrador'
+                    : 'Usuário' %>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <strong>CrioBlood</strong> &copy; 2026 —
+        Sistema de Gestão Transfusional
+    </footer>
+
+</body>
+
+</html>

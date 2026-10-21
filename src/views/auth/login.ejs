@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | CrioBlood</title>
+
+    <style>
+        :root {
+            --vermelho: #E51E43;
+            --vermelho-escuro: #B90D2D;
+            --verde-azulado: #008C8C;
+            --verde-escuro: #006B70;
+            --rosa-claro: #FCE4E9;
+            --rosa: #F7A8B8;
+            --branco: #FFFFFF;
+            --texto: #343B45;
+            --cinza: #727984;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--texto);
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    var(--rosa-claro),
+                    transparent 38%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    #D8F0ED,
+                    transparent 40%
+                ),
+                var(--branco);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+            padding: 42px 38px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid #F3DDE2;
+            border-radius: 22px;
+            box-shadow: 0 18px 50px rgba(105, 43, 61, 0.12);
+        }
+
+        .marca {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .simbolo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            background: linear-gradient(
+                135deg,
+                var(--vermelho),
+                var(--verde-azulado)
+            );
+            color: var(--branco);
+            font-size: 36px;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(229, 30, 67, 0.18);
+        }
+
+        .marca h1 {
+            font-size: 35px;
+            letter-spacing: -1.5px;
+            color: var(--verde-azulado);
+        }
+
+        .marca h1 span {
+            color: var(--vermelho);
+        }
+
+        .marca p {
+            margin-top: 8px;
+            color: var(--cinza);
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .linha-decorativa {
+            width: 65px;
+            height: 4px;
+            margin: 18px auto 0;
+            border-radius: 5px;
+            background: linear-gradient(
+                to right,
+                var(--vermelho) 50%,
+                var(--verde-azulado) 50%
+            );
+        }
+
+        .titulo {
+            margin-bottom: 24px;
+        }
+
+        .titulo h2 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .titulo p {
+            color: var(--cinza);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #DCDDE3;
+            border-radius: 10px;
+            background: #FFFDFD;
+            color: var(--texto);
+            font-size: 15px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .campo input:focus {
+            outline: none;
+            border-color: var(--verde-azulado);
+            box-shadow: 0 0 0 3px rgba(0, 140, 140, 0.12);
+        }
+
+        .campo input::placeholder {
+            color: #A0A4AC;
+        }
+
+        .botao-entrar {
+            width: 100%;
+            padding: 15px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(
+                100deg,
+                var(--vermelho),
+                var(--vermelho-escuro)
+            );
+            color: var(--branco);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .botao-entrar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(229, 30, 67, 0.22);
+        }
+
+        .rodape {
+            margin-top: 27px;
+            padding-top: 20px;
+            border-top: 1px solid #F2E6E9;
+            text-align: center;
+            color: var(--cinza);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .rodape strong {
+            color: var(--verde-azulado);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 24px;
+            }
+
+            .marca h1 {
+                font-size: 31px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-container">
+
+        <header class="marca">
+            <div class="simbolo" aria-hidden="true">C</div>
+
+            <h1>Crio<span>Blood</span></h1>
+
+            <p>Sistema de Gestão Transfusional</p>
+
+            <div class="linha-decorativa"></div>
+        </header>
+
+        <section class="titulo">
+            <h2>Bem-vindo(a)!</h2>
+            <p>Entre com suas credenciais para acessar o sistema.</p>
+        </section>
+
+        <form action="/login" method="POST">
+
+            <div class="campo">
+                <label for="login">Usuário</label>
+
+                <input
+                    type="text"
+                    id="login"
+                    name="login"
+                    placeholder="Digite seu usuário"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button class="botao-entrar" type="submit">
+                Entrar no sistema
+            </button>
+
+        </form>
+
+        <footer class="rodape">
+            Acesso restrito a usuários autorizados.<br>
+            <strong>CrioBlood</strong> &copy; 2026
+        </footer>
+
+    </main>
+</body>
+</html>

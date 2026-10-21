@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários | CrioBlood</title>
+
+    <style>
+        :root {
+            --vermelho: #E51E43;
+            --vermelho-escuro: #B90D2D;
+            --verde-azulado: #008C8C;
+            --rosa-claro: #FCE4E9;
+            --texto: #343B45;
+            --cinza: #727984;
+            --branco: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #FFF9FA;
+            color: var(--texto);
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--branco);
+            padding: 20px 7%;
+            border-bottom: 1px solid #F2DDE2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 27px;
+            color: var(--verde-azulado);
+        }
+
+        .logo span {
+            color: var(--vermelho);
+        }
+
+        .voltar {
+            text-decoration: none;
+            color: var(--verde-azulado);
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .cabecalho h2 {
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .cabecalho p {
+            color: var(--cinza);
+            font-size: 14px;
+        }
+
+        .botao {
+            display: inline-block;
+            border: none;
+            border-radius: 9px;
+            padding: 13px 18px;
+            background: var(--vermelho);
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .botao:hover {
+            background: var(--vermelho-escuro);
+        }
+
+        .tabela-container {
+            background: white;
+            border: 1px solid #F0E3E6;
+            border-radius: 14px;
+            overflow-x: auto;
+            box-shadow: 0 5px 18px rgba(52, 59, 69, 0.04);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 17px 20px;
+            border-bottom: 1px solid #F1E9EB;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        th {
+            background: var(--rosa-claro);
+            color: var(--texto);
+            font-size: 13px;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: #FFFAFB;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .ativo {
+            background: #DDF4E8;
+            color: #176B43;
+        }
+
+        .inativo {
+            background: #FCE4E9;
+            color: #B90D2D;
+        }
+
+        .perfil {
+            color: var(--verde-azulado);
+            font-weight: bold;
+        }
+
+        .vazio {
+            text-align: center;
+            padding: 35px;
+            color: var(--cinza);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--cinza);
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 0 14px;
+                margin-top: 28px;
+            }
+
+            .cabecalho h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1 class="logo">Crio<span>Blood</span></h1>
+    <a class="voltar" href="/dashboard">← Voltar ao painel</a>
+</header>
+
+<main>
+    <section class="cabecalho">
+        <div>
+            <h2>Gerenciamento de usuários</h2>
+            <p>Consulte as contas cadastradas no CrioBlood.</p>
+        </div>
+
+        <a class="botao" href="/usuarios/novo">
+            + Cadastrar usuário
+        </a>
+    </section>
+
+    <section class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Login</th>
+                    <th>Perfil</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if (usuarios.length === 0) { %>
+                    <tr>
+                        <td colspan="5" class="vazio">
+                            Nenhum usuário cadastrado.
+                        </td>
+                    </tr>
+                <% } else { %>
+                    <% usuarios.forEach(function(item) { %>
+                        <tr>
+                            <td><%= item.id %></td>
+                            <td><%= item.nome %></td>
+                            <td><%= item.login %></td>
+                            <td class="perfil">
+                                <%= item.administrador
+                                    ? 'Administrador'
+                                    : 'Usuário' %>
+                            </td>
+                            <td>
+                                <% if (item.ativo) { %>
+                                    <span class="status ativo">Ativo</span>
+                                <% } else { %>
+                                    <span class="status inativo">Inativo</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <strong>CrioBlood</strong> &copy; 2026 — Gestão Transfusional
+</footer>
+
+</body>
+</html>
