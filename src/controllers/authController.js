@@ -21,7 +21,6 @@ async function login(req, res) {
             senha,
             usuario.senha_hash
         );
-
         if (!senhaCorreta) {
             return res.status(401).send('Login ou senha inválidos.');
         }

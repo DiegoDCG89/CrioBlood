@@ -8,22 +8,29 @@ const session = require('express-session');
 const rateLimit = require('express-rate-limit');
 const pool = require('./database');
 
+// Importação das rotas
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const authRoutes = require('./routes/authRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const loteRoutes = require('./routes/loteRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Configurações gerais
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+if (isProduction) {
+    app.set('trust proxy', 1);
+}
 
 // Proteções e leitura das requisições
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Arquivos públicos: CSS, JavaScript e imagens
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Limite básico de requisições
@@ -47,37 +54,33 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: isProduction,
         sameSite: 'lax',
         maxAge: 1000 * 60 * 30
     }
 }));
 
-// Login
+// Página de login
 app.get('/login', (req, res) => {
     res.render('auth/login');
 });
 
 // Rotas do painel protegido
 app.use(dashboardRoutes);
+app.use(loteRoutes);
 
-// Rotas de autenticação
+// Rotas de autenticação: login e logout
 app.use(authRoutes);
 
-// Rotas de usuários
+// Rotas de gerenciamento de usuários
 app.use(usuarioRoutes);
 
-// Redireciona a página inicial para o login
+// Página inicial redireciona para o login
 app.get('/', (req, res) => {
     res.redirect('/login');
 });
 
-// Exibe a tela de login sem renderizar o arquivo EJS
-app.get('/login', (req, res) => {
-    res.send('Rota de login funcionando. Teste de diagnóstico.');
-});
-
-// Verifica a conexão com o banco de dados
+// Rota para verificar a conexão com o PostgreSQL
 app.get('/teste-banco', async (req, res) => {
     try {
         const resultado = await pool.query(
