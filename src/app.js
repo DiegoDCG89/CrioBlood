@@ -118,3 +118,10 @@ const hemocomponenteRoutes = require('./routes/hemocomponenteRoutes');
 // Registre no Express
 app.use('/hemocomponentes', hemocomponenteRoutes);
 require('dotenv').config();
+
+
+// Adicione isso junto às suas importações no topo do app.js
+const iniciarRotinaValidade = require('./scripts/cronValidade');
+
+// Adicione isso antes de iniciar o servidor (app.listen)
+iniciarRotinaValidade();
