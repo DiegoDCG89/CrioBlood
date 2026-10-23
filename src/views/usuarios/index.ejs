@@ -226,6 +226,7 @@
         <section class="cabecalho-pagina">
             <div>
                 <h2>Gerenciamento de usuários</h2>
+
                 <p class="descricao">
                     Consulte os usuários e gerencie seus dados e status.
                 </p>
@@ -262,6 +263,7 @@
                             </td>
                         </tr>
                     <% } else { %>
+
                         <% usuarios.forEach(function(item) { %>
                             <tr>
                                 <td><%= item.id %></td>
@@ -312,7 +314,7 @@
                                             <form
                                                 action="/usuarios/<%= item.id %>/status"
                                                 method="POST"
-                                                onsubmit="return confirm('Deseja realmente <%= item.ativo ? 'desativar' : 'ativar' %> este usuário?');"
+                                                onsubmit="return confirm('Deseja realmente alterar o status deste usuário?');"
                                             >
                                                 <% if (item.ativo) { %>
                                                     <button
@@ -336,6 +338,7 @@
                                 </td>
                             </tr>
                         <% }); %>
+
                     <% } %>
                 </tbody>
             </table>
